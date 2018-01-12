@@ -23,3 +23,10 @@ Click [here](https://github.com/StephenGrider/ReactStarter/releases) then downlo
 > npm install
 > npm start
 ```
+
+## Workflow
+1) ComponentDidMount calls fetchPosts action when component first renders
+2) fetchPosts() has type FETCH_POSTS and uses axios to retrieve list of posts from API and returns in payload
+3) reducer_posts reducer detects FETCH_POSTS, and returns dictionary object of the payload for easier data retrieval and saves object to posts state
+4) mapStateToProps function converts posts state to props for use in PostIndex
+5) PostIndex calls renderPosts() which takes object of posts, uses lodash to map through objects and render to page
