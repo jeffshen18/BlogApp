@@ -15,16 +15,23 @@ class PostsNew extends Component {
           type="text"
           {...field.input}
         />
+        {field.meta.error}
       </div>
     );
   }
 
+  onSubmit(values) {
+    console.log(values);
+  }
+
 
   render() {
+    const { handleSubmit } = this.props;
+
     return (
       //Field component is responsible for event handling and updating peices of state
       //component returns some amount of JSX that represents actually JSX rendered to screen
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           name="title"
           label="Title For Post"
@@ -42,6 +49,7 @@ class PostsNew extends Component {
           label="Post Content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
@@ -50,7 +58,7 @@ class PostsNew extends Component {
 //function to validate that correct information is being submitted
 //calls automatically when user tries to submit the form
 function validate(values) {
-  // console.log(values) 
+  // console.log(values)
   const errors = {};
 
   if (!values.title) {
