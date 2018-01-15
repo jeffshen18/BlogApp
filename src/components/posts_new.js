@@ -27,18 +27,18 @@ class PostsNew extends Component {
       <form>
         <Field
           name="title"
-          label="Title"
+          label="Title For Post"
           //component prop calls function that returns some amount of JSX
           //we do not call function here, but a reference to the function
           component={this.renderField}
         />
         <Field
-          name="tags"
-          label="Tags"
+          name="categories"
+          label="Categories"
           component={this.renderField}
         />
         <Field
-          name="tags"
+          name="content"
           label="Post Content"
           component={this.renderField}
         />
@@ -47,6 +47,32 @@ class PostsNew extends Component {
   }
 }
 
+//function to validate that correct information is being submitted
+//calls automatically when user tries to submit the form
+function validate(values) {
+  // console.log(values) 
+  const errors = {};
+
+  if (!values.title) {
+    errors.title = "Enter a title";
+  }
+
+  if (!values.categories) {
+    errors.categories = "Enter a category";
+  }
+
+  if (!values.content) {
+    errors.content = "Enter content";
+  }
+  //If errors is empty, the form is fine to submit
+  // If errors has any properties, redux form assumes form is invalid
+  return errors;
+}
+
+
 export default reduxForm({
+  //validate: validate,
+  //validate option is a function that is called automatically when user tries to submit a form
+  validate,
   form: 'PostsNewForm'
 }) (PostsNew);
