@@ -3,10 +3,13 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
   //Have to wire up to Field, field object contains event handlers to JSX that we are returning
-  renderTitleField(field) {
+  //generalize render field function
+  renderField(field) {
     return (
-      <div>
+      <div className="form-group">
+        <label>{field.label}</label>
         <input
+          className="form-control"
           //field.input contains things like onChange, onBlur...
           //Fancy JSX that saves us from typing out onChange = {field.input.onChange} ...
           type="text"
@@ -24,9 +27,20 @@ class PostsNew extends Component {
       <form>
         <Field
           name="title"
+          label="Title"
           //component prop calls function that returns some amount of JSX
           //we do not call function here, but a reference to the function
-          component={this.renderTitleField}
+          component={this.renderField}
+        />
+        <Field
+          name="tags"
+          label="Tags"
+          component={this.renderField}
+        />
+        <Field
+          name="tags"
+          label="Post Content"
+          component={this.renderField}
         />
       </form>
     );
