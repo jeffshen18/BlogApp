@@ -5,8 +5,10 @@ class PostsNew extends Component {
   //Have to wire up to Field, field object contains event handlers to JSX that we are returning
   //generalize render field function
   renderField(field) {
+    const { meta: {touched, error} } = field;
+    const className = `form-group ${field.meta.touched && field.meta.error ? 'has-danger' : ''}`;
     return (
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input
           className="form-control"
@@ -15,10 +17,16 @@ class PostsNew extends Component {
           type="text"
           {...field.input}
         />
-        {field.meta.error}
+        <div className="text-help">
+          {touched ? error : ''}
+        </div>
       </div>
     );
   }
+  //with ternary expressions, every before the question mark is evaluated
+  //if it returns truthy value, then return the thing between ? and :
+  //if falsey value, then return everything after :
+  //touched means the user has focused into the input and then focused away
 
   onSubmit(values) {
     console.log(values);
